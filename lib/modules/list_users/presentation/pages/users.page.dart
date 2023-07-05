@@ -39,20 +39,27 @@ class _PageUsersState extends State<PageUsers> {
         ),
       ),
       body: SafeArea(
-        child: BlocConsumer<UsersBloc, UsersState>(
-          listener: (context, state) {},
+        child: BlocBuilder<UsersBloc, UsersState>(
+          buildWhen: (previous, current) =>
+              current is UsersGotSuccessfull || current is UsersInitial,
           builder: (context, state) {
             if (state is UsersGotSuccessfull) {
               return ListView.builder(
                   itemCount: state.users.length,
                   itemBuilder: (_, int userIndex) {
+                    bool isUserWithallValuesEmpties = context
+                        .read<UsersBloc>()
+                        .isUserAllValuesEmpty(state.users[userIndex]);
+                    if (isUserWithallValuesEmpties) {
+                      return Container();
+                    }
                     return UserItem(
                       userEntity: state.users[userIndex],
                     );
                   });
             }
 
-            return const CircularProgressIndicator();
+            return const Center(child: CircularProgressIndicator());
           },
         ),
       ),

@@ -48,10 +48,10 @@ class UserRepositoryImpl implements UserRepository {
     ResponseAddDto userAdded = result['data'];
 
     return UserAddedEntity(
-      email: "", //userAdded.email,
-      firstName: "", //userAdded.firstName,
-      username: "", //userAdded.username,
-      lastName: "", //userAdded.lastName,
+      email: userAdded.email,
+      firstName: userAdded.firstName,
+      username: userAdded.username,
+      lastName: userAdded.lastName,
     );
   }
 }

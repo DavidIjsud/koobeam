@@ -33,6 +33,14 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
     }
   }
 
+  bool isUserAllValuesEmpty(UserEntity userEntity) {
+    return userEntity.email!.isEmpty &&
+        userEntity.firstName!.isEmpty &&
+        userEntity.lastName!.isEmpty &&
+        userEntity.pictureUrl!.isEmpty &&
+        userEntity.username!.isNotEmpty;
+  }
+
   Future<void> _onGetUsers(OnGetUsers event, Emitter<UsersState> emit) async {
     emit(LoadingUsersState());
     try {
